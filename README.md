@@ -1,5 +1,9 @@
+Readme
+--------------
 Modified from https://github.com/rak-shit/MERN-stack-Todo. Original README follows.
-------
+
+
+
 This project uses MongoDB, ExpressJS, ReactJS and Node with a slight help of Axios.
 
 This is a simple example of how to make a MERN stack application. The focus of this project is mainly on backend part and not the styling of the application. 
