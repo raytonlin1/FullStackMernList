@@ -44,5 +44,21 @@ getTodos = async (req, res) => {
     }).catch(err => console.log(err))
 }
 
+editTodos = (req, res) => {
+    let updates = req.body 
+    Todo.findOneAndUpdate({ _id: req.params.id }, updates, { new: true })
+        .then(updatedTodo => res.json(updatedTodo))
+        .catch(err => res.status(400).json("Error: " + err))
+}
 
-module.exports = {createItem, getTodos}
+deleteTodos = (req, res) => {
+    
+    Todo.findByIdAndDelete(req.params.id)
+        .then(() => res.json("Todo deleted "))
+        .catch(err => res.status(400).json("Error: " + err))
+    
+    
+
+}
+
+module.exports = {createItem, getTodos, editTodos, deleteTodos}

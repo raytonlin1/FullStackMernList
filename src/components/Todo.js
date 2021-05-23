@@ -34,6 +34,33 @@ export class Todo extends Component {
         this.setState({item:'', desc:''})
     }
 
+    edit = (event) => {
+        event.preventDefault()
+        console.log(this.state.item)
+        axios({
+            method: 'put',
+            url: 'http://localhost:3000/${event.obj._id}/update',
+            data: {
+              todo: this.state.item,
+              desc: this.state.desc
+            }
+          });
+        this.setState({item:'', desc:''})
+    }
+
+    delete = (event) => {
+        event.preventDefault()
+        console.log(this.state.item)
+        axios({
+            method: 'delete',
+            url: 'http://localhost:3000/${event.obj._id}',
+            data: {
+              todo: this.state.item,
+              desc: this.state.desc
+            }
+          });
+    }
+
     componentDidMount() {
         axios.get('http://localhost:3000/').then((response) => {
             console.log(response.data.data)
@@ -43,6 +70,7 @@ export class Todo extends Component {
                 data.push(response.data.data[i].todo + ': ' + response.data.data[i].desc)
             }
             this.setState({todos: data})
+            this.setState({nextid: response.data.data.length})
         });
     }
     componentDidUpdate() {
@@ -65,7 +93,14 @@ export class Todo extends Component {
                 <input type="text" placeholder= 'description' onChange={this.changeHandler2}/>
                 <button type="submit" onClick={this.clickHandler}>add</button>
                 <div>
-                    <ul>{this.state.todos.map((todo, index) => <li key={index}>{todo} </li>)}</ul>
+                    <ul>
+                        {this.state.todos.map((todo, index) => 
+                            <div>
+                                <li key={index}>{todo} </li>
+                                <button onClick={this.edit} obj={todo} key={index}>Edit</button>
+                                <button onClick={this.delete} obj={todo} key={index}>Delete</button>
+                            </div>
+                        )}</ul>
                 </div>
             </div>
         )
