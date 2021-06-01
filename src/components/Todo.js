@@ -1,110 +1,100 @@
-import React, { Component } from 'react'
+import React, { Component, useEffect, useState } from 'react'
 import axios from 'axios';
 
-export class Todo extends Component {
-    constructor(props) {
-        super(props)
+function Todo() {
+    const emptyTodo = [['(No Message)', '(No Name)', -1]]
+    const [todos, setTodos] = useState(emptyTodo)
+    const [item, setItem] = useState("")
+    const [name, setName] = useState("")
+
+    async function refresh() {
+        await axios.get('http://localhost:3000/').then((response) => {
+            console.log(response.data.data)
+            console.log(response.data.data.length)
+            let data = []
+            for(var i = 0; i < response.data.data.length; i++){
+                data.push([response.data.data[i].todo,response.data.data[i].name,response.data.data[i]._id])
+            }
+            if (response.data.data.length === 0) {
+                setTodos(emptyTodo)
+            } else {
+                setTodos(data)
+            }
+        });
+    }
     
-        this.state = {
-             todos : [],
-             item : "",
-             desc: ""
-        }
+    function changeHandler(event) {
+        setItem(event.target.value)
     }
 
-    changeHandler1 = (event) => {
-        this.setState({item: event.target.value})
+    function changeHandler2(event) {
+        setName(event.target.value)
     }
 
-    changeHandler2 = (event) => {
-        this.setState({desc: event.target.value})
-    }
-
-    clickHandler = (event) => {
+    async function clickHandler(event) {
         event.preventDefault()
-        console.log(this.state.item)
-        axios({
+        console.log(item)
+        await axios({
             method: 'post',
             url: 'http://localhost:3000/',
             data: {
-              todo: this.state.item,
-              desc: this.state.desc
+                todo: item,
+                name: name,
             }
-          });
-        this.setState({item:'', desc:''})
-    }
-
-    edit = (event) => {
-        event.preventDefault()
-        console.log(this.state.item)
-        axios({
-            method: 'put',
-            url: 'http://localhost:3000/${event.obj._id}/update',
-            data: {
-              todo: this.state.item,
-              desc: this.state.desc
-            }
-          });
-        this.setState({item:'', desc:''})
-    }
-
-    delete = (event) => {
-        event.preventDefault()
-        console.log(this.state.item)
-        axios({
-            method: 'delete',
-            url: 'http://localhost:3000/${event.obj._id}',
-            data: {
-              todo: this.state.item,
-              desc: this.state.desc
-            }
-          });
-    }
-
-    componentDidMount() {
-        axios.get('http://localhost:3000/').then((response) => {
-            console.log(response.data.data)
-            let data = [];
-            console.log(response.data.data.length)
-            for(var i =0; i < response.data.data.length; i++){
-                data.push(response.data.data[i].todo + ': ' + response.data.data[i].desc)
-            }
-            this.setState({todos: data})
-            this.setState({nextid: response.data.data.length})
         });
-    }
-    componentDidUpdate() {
-        axios.get('http://localhost:3000/').then((response) => {
-            console.log(response.data.data)
-            let data = [];
-            console.log(response.data.data.length)
-            for(var i =0; i < response.data.data.length; i++){
-                data.push(response.data.data[i].todo + ': ' + response.data.data[i].desc)
-            }
-            this.setState({todos: data})
-        });
-    }
-  
-    render() {
+        refresh()
         
-        return (
-            <div>
-                <input type="text" placeholder= 'name' onChange={this.changeHandler1}/>
-                <input type="text" placeholder= 'description' onChange={this.changeHandler2}/>
-                <button type="submit" onClick={this.clickHandler}>add</button>
-                <div>
-                    <ul>
-                        {this.state.todos.map((todo, index) => 
-                            <div>
-                                <li key={index}>{todo} </li>
-                                <button onClick={this.edit} obj={todo} key={index}>Edit</button>
-                                <button onClick={this.delete} obj={todo} key={index}>Delete</button>
-                            </div>
-                        )}</ul>
-                </div>
-            </div>
-        )
     }
+
+    async function editHandler(event, id) {
+        event.preventDefault()
+        console.log(item)
+        await axios({
+            method: 'put',
+            url: 'http://localhost:3000/'+id,
+            data: {
+                todo: item,
+                name: name,
+            }
+          });
+        refresh()
+    }
+
+    async function deleteHandler(event, id) {
+        event.preventDefault()
+        console.log(item)
+        await axios({
+            method: 'delete',
+            url: 'http://localhost:3000/'+id,
+          });
+        refresh()
+    }
+
+    useEffect(()=>refresh(),[])
+
+        
+    return (
+        <div>
+            <input type="text" onChange={e => changeHandler2(e)} placeholder='Name...'/>
+            <input type="text" onChange={e => changeHandler(e)} placeholder="Message..."/>
+            <button type="submit" onClick={e => clickHandler(e)}>Add message</button>
+            <div>
+                <ul>{todos.map((todo, index) => 
+                        <div className='listItem'>
+                            {(todo[2] != -1) ? <div> 
+                            <li key={index}> {todo[1]}: {todo[0]}</li>
+                                <button type='submit' onClick={(e) => deleteHandler(e, todo[2])} key={index}>Delete</button> 
+                                <button type='submit' onClick={(e) => editHandler(e, todo[2])} key={index}>Edit</button> 
+                                </div>
+                                : "There are no items in the list."}
+                        </div>
+                    )}
+                </ul>
+            </div>
+        </div>
+    )
+    
+
 }
 
 export default Todo

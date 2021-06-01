@@ -9,20 +9,16 @@
     "axios": "^0.21.1",
     "body-parser": "^1.19.0",
     "cors": "^2.8.5",
-    "cross-env": "^7.0.3",
     "express": "^4.17.1",
-    "mime": "^2.5.2",
-    "mongodb": "^3.6.6",
-    "mongoose": "^5.12.8",
-    "node": "^16.1.0",
+    "mongoose": "^5.12.12",
     "nodemon": "^2.0.7",
     "react": "^16.14.0",
     "react-dom": "^16.12.0",
-    "react-scripts": "^4.0.3"
+    "react-scripts": "3.3.1"
   },
   "scripts": {
-    "start": " set PORT=8000 && react-scripts start",
-    "build": "react-scripts build",
+    "start": "set PORT=8000 && react-scripts start",
+    "build": "cross-env NODE_ENV=production webpack --config build/webpack.config.js",
     "test": "react-scripts test",
     "eject": "react-scripts eject"
   },
@@ -40,5 +36,8 @@
       "last 1 firefox version",
       "last 1 safari version"
     ]
+  },
+  "devDependencies": {
+    "cross-env": "^7.0.3"
   }
 }

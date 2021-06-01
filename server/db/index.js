@@ -1,4 +1,5 @@
 const mongoose = require('mongoose')
+
 const mongoURL = 'mongodb+srv://raytonlin1:charmander@cluster0.ha1a8.mongodb.net/Cluster0?retryWrites=true&w=majority'
 mongoose
     .connect(mongoURL, { useNewUrlParser: true })

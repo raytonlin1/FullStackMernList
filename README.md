@@ -1,64 +1,50 @@
 This is a MERN app where I added multiple input fields to be added for each object in the database, and I added the update and delete actions from CRUD. This app allows you to make messages with your name that are stored in a database then displayed on screen. You can create, edit and delete these messages thanks to my additions.
 
+A video demo is uploaded by me at https://www.youtube.com/watch?v=z6Tr_cLIB7M.
 
 (The text below is from the original README)
 
-.
-.
-.
-.
-.
-.
-.
-.
-.
-.
-
-
+. . . . . . . . . .
 
 This project uses MongoDB, ExpressJS, ReactJS and Node with a slight help of Axios.
 
-This is a simple example of how to make a MERN stack application. The focus of this project is mainly on backend part and not the styling of the application. 
+This is a simple example of how to make a MERN stack application. The focus of this project is mainly on backend part and not the styling of the application.
 
-## Setting up the project locally
+Setting up the project locally
+This project was bootstrapped with Create React App.
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+You need to first clone the repository by the following command
 
-You need to first clone the repository by the following command 
+git clone https://github.com/rak-shit/MERN-stack-Todo.git
 
-`git clone https://github.com/rak-shit/MERN-stack-Todo.git`
+Then you need to install add the dependencies in the root directory. This project mainly uses, Express, Node, React, MongoDB and Axios.
 
-Then you need to install add the dependencies in the root directory. This project mainly uses, `Express`, `Node`, `React`, `MongoDB` and `Axios`.
+You first need to install node and setup the react develpment environment. Then you can download and install MongoDB from the official mongo website MongoDB Download.
 
-You first need to install node and setup the react develpment environment. Then you can download and install MongoDB from the official mongo website [MongoDB Download](https://www.mongodb.com/download-center/community). 
+Then you can install dependencies like Express, body-parser, cors, mongoose and nodemon by the following command in the root directory or the server directory which is inside the root directory
 
-Then you can install dependencies like `Express`, `body-parser`, `cors`, `mongoose` and `nodemon` by the following command in the root directory or the server directory which is inside the root directory
+npm install express body-parser cors mongoose nodemon
 
-`npm install express body-parser cors mongoose nodemon`
+Then in the root directory install Axios using
 
-Then in the root directory install `Axios` using
-
-`npm insall axios`
+npm insall axios
 
 This step finishes the setting up of the project locally
 
-## To run the server:
-
+To run the server:
 Go to the server directory and type the following commands on the command line:
 
-`nodemon index.js`
+nodemon index.js
 
-This will run the server on the `PORT 3000`.
+This will run the server on the PORT 3000.
 
-## To run the client:
-
+To run the client:
 Go to the client directory and type the following command on the command line:
 
-`npm install`
+npm install
 
 and
 
-`npm start`
+npm start
 
-This will run the server on the `PORT 8000`.
-
+This will run the server on the PORT 8000.

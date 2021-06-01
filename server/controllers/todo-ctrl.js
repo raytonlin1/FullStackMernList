@@ -35,30 +35,22 @@ getTodos = async (req, res) => {
         if (err) {
             return res.status(400).json({ success: false, error: err })
         }
-        if (!todos.length) {
-            return res
-                .status(404)
-                .json({ success: false, error: `Item not found` })
-        }
         return res.status(200).json({ success: true, data: todos })
     }).catch(err => console.log(err))
 }
 
-editTodos = (req, res) => {
-    let updates = req.body 
-    Todo.findOneAndUpdate({ _id: req.params.id }, updates, { new: true })
-        .then(updatedTodo => res.json(updatedTodo))
-        .catch(err => res.status(400).json("Error: " + err))
-}
+editTodos = async (req, res) => {
+    const newTodo = new Todo({_id: req.params.id,todo: req.body.todo, name: req.body.name})
+    Todo.updateOne({_id: req.params.id},newTodo)
+        .then(() => {res.status(201).json({message: 'Update complete'})})
+        .catch((error)=>{res.status(400).json({error: error})})
+    }
 
-deleteTodos = (req, res) => {
-    
-    Todo.findByIdAndDelete(req.params.id)
+deleteTodos = async (req, res) => {
+    console.log(req.params.id)
+    await Todo.findByIdAndDelete(req.params.id)
         .then(() => res.json("Todo deleted "))
         .catch(err => res.status(400).json("Error: " + err))
-    
-    
-
 }
 
 module.exports = {createItem, getTodos, editTodos, deleteTodos}
