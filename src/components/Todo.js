@@ -81,7 +81,7 @@ function Todo() {
             <div>
                 <ul>{todos.map((todo, index) => 
                         <div className='listItem'>
-                            {(todo[2] != -1) ? <div> 
+                            {(todo[2] !== -1) ? <div> 
                             <li key={index}> {todo[1]}: {todo[0]}</li>
                                 <button type='submit' onClick={(e) => deleteHandler(e, todo[2])} key={index}>Delete</button> 
                                 <button type='submit' onClick={(e) => editHandler(e, todo[2])} key={index}>Edit</button> 
