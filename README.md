@@ -2,20 +2,7 @@ This is a MERN app where I added multiple input fields to be added for each obje
 
 A video demo is uploaded by me at https://www.youtube.com/watch?v=z6Tr_cLIB7M.
 
-(The text below is from the original README)
 
-. . . . . . . . . .
-
-This project uses MongoDB, ExpressJS, ReactJS and Node with a slight help of Axios.
-
-This is a simple example of how to make a MERN stack application. The focus of this project is mainly on backend part and not the styling of the application.
-
-Setting up the project locally
-This project was bootstrapped with Create React App.
-
-You need to first clone the repository by the following command
-
-git clone https://github.com/rak-shit/MERN-stack-Todo.git
 
 Then you need to install add the dependencies in the root directory. This project mainly uses, Express, Node, React, MongoDB and Axios.
 
